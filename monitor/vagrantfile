@@ -8,9 +8,9 @@ Vagrant.configure("2") do |config|
     vb.linked_clone = true
 
   end
-  
-  # Primary VM
-  config.vm.define "sandbox", primary: true do |node|
+
+  # VM
+  config.vm.define "vm", primary: true do |node|
 
     # OS
     node.vm.box = "centos/7"
@@ -18,8 +18,8 @@ Vagrant.configure("2") do |config|
     node.vm.box_check_update = false
 
     # Network
-    node.vm.hostname = "sandbox"
-    node.vm.network "private_network", ip: "192.168.72.5"
+    node.vm.hostname = "monitor"
+    node.vm.network "private_network", ip: "192.168.2.5"
     node.hostmanager.enabled = true
     node.hostmanager.manage_guest = true
     node.hostmanager.ignore_private_ip = false

@@ -5,7 +5,7 @@ SSH_DIR=/home/$USER/.ssh
 PUB_KEY=/vagrant/${USER}_rsa.pub
 PRIV_KEY=/vagrant/${USER}_rsa
 
-if test ! `id -u $USER`
+if test ! $(id -u $USER)
   then
     useradd $USER
     mkdir -p $SSH_DIR
