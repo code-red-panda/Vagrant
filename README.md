@@ -4,7 +4,7 @@ Pre-requisites
 - VirtualBox 6.0+ https://www.virtualbox.org/wiki/Downloads
 
 Project IPs
-- Vbox subnet `192.168.2.255`
+- Vbox subnet `192.168.2.%`
 ```
 monitor		192.168.2.5
 centos7		192.168.2.6
