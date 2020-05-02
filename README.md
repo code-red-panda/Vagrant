@@ -1,5 +1,10 @@
 # localbox
-Project Reserved IPs
+Pre-requisites
+- Vagrant 2.2+ https://www.vagrantup.com/downloads.html
+- VirtualBox 6.0+ https://www.virtualbox.org/wiki/Downloads
+
+Project IPs
+- Vbox subnet `192.168.2.255`
 ```
 monitor		192.168.2.5
 centos7		192.168.2.6
@@ -10,15 +15,18 @@ pxc		192.168.2.81/82/83
 async		192.168.2.91/92
 ```
 
-For projects with multiple VMs that will need Ansible, run the prepare script to:
-- generate a "vagrantfile" for looping over multiple VMs
-- generate ansible SSH keys for the project
-- generate the Vagrant provisioner script that will create an ansible user, grant sudo, and configure SSH on each VM
-
+For projects with a single VM, run the prepare script to:
+- Create project directory
+- Generate CentOS7 `vagrantfile`
 ```
-cd localbox
+sh prepare_project_single_vm.sh <project> <4th octet IP>
+```
 
-mkdir <project>
-
-sh prepare_ansible_for_project.sh <project>
+For projects with multiple VMs, run the prepare script to:
+- Create project directory
+- Generate CentOS7 `vagrantfile` to loop over multiple VMs
+- Generate `ansible` SSH keys for the project
+- Generate bash provisioner script to create an `ansible` user, grant `ansible` sudo, and configure SSH for `ansible` on each VM
+```
+sh prepare_project_multi_vm.sh <project> <4th octet IP> <total number of VMs>
 ```
