@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
       node.vm.box_check_update = false
 
       # Network
-      node.vm.hostname = "${PROJECT}#{i}"
+      node.vm.hostname = "${PROJECT}_#{i}"
       node.vm.network "private_network", ip: "192.168.2.$IP#{i}"
       node.hostmanager.enabled = true
       node.hostmanager.manage_guest = true
