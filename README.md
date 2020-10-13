@@ -1,4 +1,4 @@
-# localbox
+# vagrant
 Pre-requisites
 - Vagrant 2.2+ https://www.vagrantup.com/downloads.html
 - VirtualBox 6.0+ https://www.virtualbox.org/wiki/Downloads
@@ -26,7 +26,10 @@ For projects with multiple VMs, run the prepare script to:
 - Create project directory
 - Generate CentOS7 `vagrantfile` to loop over multiple VMs
 - Generate `ansible` SSH keys for the project
-- Generate bash provisioner script to create an `ansible` user, grant `ansible` sudo, and configure SSH for `ansible` on each VM
+- Generate bash provisioner script to:
+  - create an `ansible` user
+  - grant `ansible` user sudo
+  - configure SSH for `ansible` user on each VM
 ```
 sh prepare_project_multi_vm.sh <project> <4th octet IP> <total number of VMs>
 ```
