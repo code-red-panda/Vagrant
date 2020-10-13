@@ -19,7 +19,8 @@ mkdir -p $PROJECT
 ### Generate vagrantfile
 #########################
 
-echo 'Vagrant.configure("2") do |config|
+cat << EOF >> ${PROJECT}/vagrantfile
+Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
 
@@ -39,12 +40,13 @@ echo 'Vagrant.configure("2") do |config|
     node.vm.box_check_update = false
 
     # Network
-    node.vm.hostname = "'$PROJECT'"
-    node.vm.network "private_network", ip: "192.168.2.'$IP'"
+    node.vm.hostname = "${PROJECT}"
+    node.vm.network "private_network", ip: "192.168.2.${IP}"
     node.hostmanager.enabled = true
     node.hostmanager.manage_guest = true
     node.hostmanager.ignore_private_ip = false
 
   end
 
-end' > $PROJECT/vagrantfile
+end
+EOF
