@@ -21,6 +21,12 @@ For projects with a single VM, run the prepare script to:
 ```
 sh prepare_project_single_vm.sh <project> <4th octet IP>
 ```
+Change into the project dir and install the `hostmanager` plugins
+```
+vagrant plugin install hostmanager vagrant-hostmanager
+vagrant up
+vagrant hostmanager
+```
 
 For projects with multiple VMs, run the prepare script to:
 - Create project directory
