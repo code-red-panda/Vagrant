@@ -2,6 +2,10 @@
 Pre-requisites
 - Vagrant 2.2+ https://www.vagrantup.com/downloads.html
 - VirtualBox 6.0+ https://www.virtualbox.org/wiki/Downloads
+- Vagrant plugins
+```
+vagrant plugin install hostmanager vagrant-hostmanager
+```
 
 Project IPs
 - Vbox subnet `192.168.2.%`
@@ -19,13 +23,7 @@ For projects with a single VM, run the prepare script to:
 - Create project directory
 - Generate CentOS7 `vagrantfile`
 ```
-sh prepare_project_single_vm.sh <project> <4th octet IP>
-```
-Change into the project dir and install the `hostmanager` plugins
-```
-vagrant plugin install hostmanager vagrant-hostmanager
-vagrant up
-vagrant hostmanager
+sh prepare_project_single_vm.sh <project name> <os> <4th octet IP>
 ```
 
 For projects with multiple VMs, run the prepare script to:
@@ -37,5 +35,5 @@ For projects with multiple VMs, run the prepare script to:
   - grant `ansible` user sudo
   - configure SSH for `ansible` user on each VM
 ```
-sh prepare_project_multi_vm.sh <project> <4th octet IP> <total number of VMs>
+sh prepare_project_multi_vm.sh <project name> <os> <4th octet IP> <total number of VMs>
 ```
