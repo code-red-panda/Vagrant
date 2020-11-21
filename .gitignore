@@ -1,9 +1,11 @@
 **/.vagrant
 **/*rsa*
 **/*.log
+*rsa*
 async57
 centos7
 centos6
+monitor
 ubuntu1804
 ubuntu2004
 pxc57

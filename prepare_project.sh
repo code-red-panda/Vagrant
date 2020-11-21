@@ -59,7 +59,7 @@ Vagrant.configure("2") do |config|
     vb.memory = 512
     vb.cpus = 1
     vb.linked_clone = true
-    vb.customize ["modifyvm", :id, "--audio", "none"]
+    #vb.customize ["modifyvm", :id, "--audio", "none"]
 
   end
 
@@ -96,7 +96,7 @@ Vagrant.configure("2") do |config|
     vb.memory = 512
     vb.cpus = 1
     vb.linked_clone = true
-    vb.customize ["modifyvm", :id, "--audio", "none"]
+    #vb.customize ["modifyvm", :id, "--audio", "none"]
 
   end
 
@@ -111,7 +111,7 @@ Vagrant.configure("2") do |config|
 
       # Network
       node.vm.hostname = "${PROJECT}-#{i}"
-      node.vm.network "private_network", ip: "192.168.2.$IP#{i}"
+      node.vm.network "private_network", ip: "192.168.2.${IP}#{i}"
       node.hostmanager.enabled = true
       node.hostmanager.manage_guest = true
       node.hostmanager.ignore_private_ip = false
@@ -163,4 +163,9 @@ EOF
 ### Generate SSH keys
 #########################
 
-ssh-keygen -t rsa -C "${USER}" -f "./${PROJECT}/${USER}_rsa" -P "" 1> /dev/null
+if ! test -f ${USER}_rsa
+then
+    ssh-keygen -t rsa -C "${USER}" -f "./${USER}_rsa" -P "" 1> /dev/null
+fi
+
+cp ${USER}_rsa ${USER}_rsa.pub ./${PROJECT}
