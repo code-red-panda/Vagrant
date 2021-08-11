@@ -35,7 +35,7 @@ case $OS in
       BOX="ubuntu/bionic64"
       VERSION="20190514.0.0" ;;
   ubuntu2004)
-      BOX="ubuntu/trusty64"
+      BOX="ubuntu/focal64"
       VERSION="20190514.0.0" ;;
   *)
       echo "$OS is not supported. Please choose from: centos6, centos7, ubuntu1804, ubuntu2004"
@@ -68,15 +68,15 @@ Vagrant.configure("2") do |config|
 
     # OS
     node.vm.box = "${BOX}"
-    node.vm.box_version = "${VERSION}"
-    node.vm.box_check_update = false
+    #node.vm.box_version = "${VERSION}"
+    #node.vm.box_check_update = false
 
     # Network
     node.vm.hostname = "${PROJECT}"
     node.vm.network "private_network", ip: "192.168.2.${IP}"
-    node.hostmanager.enabled = true
-    node.hostmanager.manage_guest = true
-    node.hostmanager.ignore_private_ip = false
+    #node.hostmanager.enabled = true
+    #node.hostmanager.manage_guest = true
+    #node.hostmanager.ignore_private_ip = false
 
     # Provision
     node.vm.provision "shell", path: "ansible.sh", run: "always"
@@ -106,15 +106,15 @@ Vagrant.configure("2") do |config|
 
       # OS
       node.vm.box = "${BOX}"
-      node.vm.box_version = "${VERSION}"
-      node.vm.box_check_update = false
+      #node.vm.box_version = "${VERSION}"
+      #node.vm.box_check_update = false
 
       # Network
       node.vm.hostname = "${PROJECT}-#{i}"
       node.vm.network "private_network", ip: "192.168.2.${IP}#{i}"
-      node.hostmanager.enabled = true
-      node.hostmanager.manage_guest = true
-      node.hostmanager.ignore_private_ip = false
+      #node.hostmanager.enabled = true
+      #node.hostmanager.manage_guest = true
+      #node.hostmanager.ignore_private_ip = false
 
       # Provision
       node.vm.provision "shell", path: "ansible.sh", run: "always"
@@ -145,7 +145,7 @@ PRIV_KEY=/vagrant/\${USER}_rsa
 
 if test ! \$(id -u \${USER})
   then
-    useradd \${USER}
+    useradd -m \${USER}
     mkdir -p \${SSH_DIR}
     cp \${PUB_KEY} \${SSH_DIR}/authorized_keys
     cp \${PRIV_KEY} \${SSH_DIR}/id_rsa
@@ -153,9 +153,15 @@ if test ! \$(id -u \${USER})
     chmod 700 \${SSH_DIR}
     chmod 600 \${SSH_DIR}/*
     echo "\${USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/\${USER}
-    yum update -y
-    yum install -y epel-release
-    yum install -y ansible git
+    #yum update -y
+    #yum install -y epel-release
+    #yum install -y ansible git
+    apt update && apt upgrade -y
+    apt install python3-pip -y
+    pip3 install ansible-core ansible
+    git clone https://github.com/code-red-panda/crp-ansible.git /var/crp-ansible
+    echo "for i in \$(seq 1 \${VM_COUNT}) ; do echo \"192.168.2.\${IP}\${i} \${PROJECT}-\${i}\" >> /etc/hosts ; done"
+    for i in \$(seq 1 \${VM_COUNT}) ; do echo "192.168.2.\${IP}\${i} \${PROJECT}-\${i}" >> /etc/hosts ; done
 fi
 EOF
 
